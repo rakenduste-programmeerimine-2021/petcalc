@@ -1,1 +1,1 @@
-
+Kasutaja sisestab andmeid oma aja kohta ja millist looma ta tahab võtta, rakendus kontrollib, kas tal on selle jaoks aega. Rakendus pakub, millise looma võtmiseks on tal aega. Sisselogimine andmete salvestamiseks, saab lisada erinevaid loomi ja kokku arvutada. Sisselogimata kasutajale kalkulaator.
