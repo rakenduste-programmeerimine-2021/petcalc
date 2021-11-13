@@ -16,7 +16,7 @@ Kasutaja sisestab andmeid oma eluviisi, vaba aja ja taolise kohta, info mille ab
 
 ## Funktsionaalsus
 
-* Kasutaja sisestab andmeid mille abil saab hinnata tema valmidust erinevate loomade võtmiseks
-* Selle põhjal soovitab rakendus kasutajale sobivat lemmiklooma
-* Sisselogimata kasutajale on ühe loomaga kalkulaator
-* Sisse loginud kasutaja saab salvestada andmeid ja arvutada mitme loomaga
+* kasutaja sisestab andmeid mille abil saab hinnata tema valmidust erinevate loomade võtmiseks
+* selle põhjal soovitab rakendus kasutajale sobivat lemmiklooma
+* sisselogimata kasutajale on ühe loomaga kalkulaator
+* sisse loginud kasutaja saab salvestada andmeid ja arvutada mitme loomaga
