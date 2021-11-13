@@ -12,7 +12,7 @@ Kasutaja sisestab andmeid oma eluviisi, vaba aja ja taolise kohta, info mille ab
 
 ## Wireframe
 
-
+https://www.figma.com/file/AoIzRBOuuewpDRLmZklFHQ/Petcalc?node-id=0%3A1
 
 ## Funktsionaalsus
 
