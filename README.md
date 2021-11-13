@@ -1,6 +1,6 @@
-#PetCalc
+# PetCalc
 
-##Autorid : Harry Loog ja Kaspar Taniel Kannel
+## Autorid : Harry Loog ja Kaspar Taniel Kannel
 
  Rakendus, mis aitab inimestel valida neile sobivat lemmiklooma.
 
