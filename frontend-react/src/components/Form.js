@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Calculator from './Calculator';
 
 function Form () {
     const inputRef1 = useRef(null);

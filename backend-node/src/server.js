@@ -3,8 +3,14 @@ const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3000
 require("dotenv").config()
 
+const petRoutes = require('./routes/pet');
+const petTypeRoutes = require('./routes/petType');
+
 const app = express()
 app.use(express.json());
+
+app.use('/api/pet', petRoutes);
+app.use('/api/pettype', petTypeRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
