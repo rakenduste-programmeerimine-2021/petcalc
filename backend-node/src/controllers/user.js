@@ -1,5 +1,3 @@
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
 const User = require("../models/User")
 
 exports.signup = async (req, res) => {
@@ -25,18 +23,11 @@ exports.signup = async (req, res) => {
   
       if (user) throw Error("User with that e-mail already exists")
   
-      const salt = await bcrypt.genSalt(10)
-      if (!salt) throw Error("Something critical happened 483543875")
-  
-      const hash = await bcrypt.hash(password, salt)
-      if (!hash) throw Error("Something critical happened 123172387")
-  
-      const hash2 = await bcrypt.hash(againPassword, salt)
-      if (hash2!=hash) throw Error("Something critical happened 172387123")
+      
   
       const newUser = new User({
         email,
-        password: hash,
+        password,
         securityQuestion,
         securityAnswer,
       })
@@ -46,47 +37,6 @@ exports.signup = async (req, res) => {
   
       res.status(200).json({ message: "User created successfully" })
     } catch (e) {
-      res.status(400).json({ error: e.message })
-    }
-  }
-
-  exports.login = async (req, res) => {
-    const escapeHTML = str =>
-    str.replace(
-      /[&<>'"]/g,
-      tag =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-        }[tag] || tag)
-    );
-    const { email, password } = escapeHTML(req.body)
-  
-    try {
-      const user = await User.findOne({ email })
-  
-      if (!user) throw Error("User with this e-mail does not exist")
-  
-      const isMatch = await bcrypt.compare(password, user.password)
-      if (!isMatch) throw Error("Error")
-  
-      const userTemplate = {
-        id: user._id,
-        email,
-      }
-  
-      const token = jwt.sign(userTemplate, process.env.JWT_SECRET)
-      if (!token) throw Error("Something critical happened 99981811")
-  
-      res.status(200).json({
-        token,
-        ...userTemplate
-      })
-  
-    } catch (e){
       res.status(400).json({ error: e.message })
     }
   }
@@ -111,7 +61,7 @@ exports.signup = async (req, res) => {
       const user = await User.findOne({ email })
 
       if (!user) throw Error("User with this e-mail does not exist")
-  
+
       const updatedUser = {
         ...user,
         email,

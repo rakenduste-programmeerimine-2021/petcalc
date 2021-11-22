@@ -27,7 +27,7 @@ exports.createPetType = async (req, res) => {
 exports.updatePetType = async (req, res) => {
 
   const { id } = req.params
-  const createdPetType = await PetType.findById({ _id: id})
+  const createdPetType = await PetType.findById(id)
   createdPetType = req.body;
   const savedPetType = await createdPetType.save()
 
