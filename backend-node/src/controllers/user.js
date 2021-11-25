@@ -1,20 +1,9 @@
 const User = require("../models/User")
 
 exports.signup = async (req, res) => {
-    const escapeHTML = str =>
-    str.replace(
-      /[&<>'"]/g,
-      tag =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-        }[tag] || tag)
-    );
     
-    const { email, password, againPassword, securityQuestion, securityAnswer } = escapeHTML(req.body)
+    
+    const { email, password, againPassword, securityQuestion, securityAnswer } =req.body
   
     
   
@@ -23,14 +12,13 @@ exports.signup = async (req, res) => {
   
       if (user) throw Error("User with that e-mail already exists")
   
-      
-  
       const newUser = new User({
         email,
         password,
         securityQuestion,
         securityAnswer,
       })
+      
   
       const savedUser = await newUser.save()
       if (!savedUser) throw Error("Error saving user")
@@ -42,36 +30,26 @@ exports.signup = async (req, res) => {
   }
 
   exports.updateUser = async (req, res) => {
-    const escapeHTML = str =>
-    str.replace(
-      /[&<>'"]/g,
-      tag =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-        }[tag] || tag)
-    );
-    const { email, password, againPassword, securityQuestion, securityAnswer, options } = escapeHTML(req.body)
+    
+    const { email, password, againPassword, securityQuestion, securityAnswer, options } = req.body
   
   
     try {
-      const user = await User.findOne({ email })
+      const user = await User.findOne(req.params)
 
       if (!user) throw Error("User with this e-mail does not exist")
 
-      const updatedUser = {
+      const newUser = new User({
         ...user,
         email,
         password,
         securityQuestion,
         securityAnswer,
         options,
-      }
+      })
+      
   
-      const savedUser = await updatedUser.save()
+      const savedUser = await newUser.save()
       if (!savedUser) throw Error("Error saving user")
   
       res.status(200).json({ message: "User updated successfully" })
@@ -81,19 +59,8 @@ exports.signup = async (req, res) => {
   }
 
   exports.deleteUser = async (req, res) => {
-    const escapeHTML = str =>
-    str.replace(
-      /[&<>'"]/g,
-      tag =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-        }[tag] || tag)
-    );
-    const { email } = escapeHTML(req.params)
+    
+    const { email } = req.params
     const user = await User.findOneAndDelete({ email: email })
   
     if (!user) res.status(404).send("No user with that id found")
@@ -101,19 +68,8 @@ exports.signup = async (req, res) => {
   }
 
   exports.getUserInfo = async (req, res) => {
-    const escapeHTML = str =>
-    str.replace(
-      /[&<>'"]/g,
-      tag =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-        }[tag] || tag)
-    );
-    const { email } = escapeHTML(req.params)
+    
+    const { email } = req.params
     const user = await User.findOne({ email: email })
   
     if (!user) res.status(404).send("No user with that id found")
