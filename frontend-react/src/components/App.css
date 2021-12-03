@@ -37,71 +37,60 @@
     }
   }
   
-  form {
-    text-align: center;
-    margin: 50px;
-    }
-  
-  form * {
-    margin: 10px;
-  }
-  
-  
   form button {
-    background-color: rgb(108, 250, 203);
+    margin:30px;
+    padding: 5px 15px;
+    background-color: rgb(81, 190, 154);
     border-style: solid;
-    border-radius: 3px;
+    border-width: 1px;
     border-color: rgb(132, 177, 158);
     color: rgb(0, 0, 0);
+    font-size: 16px;
   }
   
   form button:hover {
     background-color: rgb(27, 172, 160);
     border-style: solid;
-    border-radius: 3px;
+    border-width: 1px;
     color: rgb(0, 0, 0);
-  }
-
-  .navbar {
-    list-style-type: none;
-    float: right;
-    width: 50%;
-    background-color: rgb(108, 250, 203);
-    border-radius: 4px;
-    border-color: rgb(132, 177, 158);
-    height: 50px;
-    display: flex;
-  }
-  
-  .navbar div:hover {
-    background-color: rgb(27, 172, 160);
-  }
-  
-  .cart {
-    height: 30px;
-    margin: 5px;
   }
   
   .logo {
     height: 30px;
     margin: 5px;
   }
-  
-  .navbar div {
+
+  .main {
+    margin: 30px 140px;
+  }
+
+  .container {
+    display: flex;
+    padding: 30px;
+    
+  }
+
+  .subcont {
     flex: 1;
-    border-style: solid;
-    border-radius: 5px;
-    border-color:transparent;
   }
-  
-  .navbar a {
-    margin: 0px;
-    display: block;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:20px;
+
+  .subcont:first-child {
+    margin-right: 40px;
   }
-  
+
+  .subcont label, input, button {
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .login-wrapper {
+    margin: 30px 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-wrapper label, input, button {
+    margin: 5px;
+    padding: 5px;
+  }

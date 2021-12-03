@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Layout } from 'antd';
-
+import Store from './store';
 const { Header, Content } = Layout;
 
 ReactDOM.render(
@@ -13,7 +13,9 @@ ReactDOM.render(
       <Header />
       <Content>
         <React.StrictMode>
+          <Store>
             <App />
+          </Store>
         </React.StrictMode>        
       </Content>
     </Layout>

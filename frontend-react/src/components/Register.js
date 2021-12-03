@@ -12,38 +12,36 @@ const Register = () => {
     const [error, setError] = useState("");
     const history = useHistory();
 
-    
+    async function registerf(credentials) {
+        return fetch('http://localhost:8081/api/user/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        })
+          .then(data => data.json())
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const registerUser = await (await fetch('http://localhost:8081/api/user/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify({email, password, againPassword, securityQuestion, securityAnswer}),
-            })).json();
-
-        if(registerUser.error) {
-            setError(registerUser.error)
-          } else if (registerUser.message){
-            setError("Success!")
-          } else {
-            setError(registerUser.msg['0'].msg)
-          }
+        const result = await registerf({
+            email, password, againPassword, securityQuestion, securityAnswer
+        });   
+        console.log(result);
     }
     
 
     return(
-        <div style={{ float: "left", textAlign: "left"  }}>
+        <div class="login-wrapper">
             <form onSubmit={handleSubmit}>
                 <label>Email:</label><br/>
                 <Input placeholder="Email" type = "text" onChange={(e) => setEmail(e.target.value)} /><br/>
                 <label>Password:</label><br/>
-                <Input placeholder="Password" type = "password" onChange={(e) => setPassword(e.target.value)} /><br/>
+                <Input.Password onChange={(e) => setPassword(e.target.value)} /><br/>
                 <label>Confirm password</label><br/>
-                <Input placeholder="Password" type = "password" onChange={(e) => setAgainPassword(e.target.value)} /><br/>
+                <Input.Password onChange={(e) => setAgainPassword(e.target.value)} /><br/>
                 <label>Security question:</label><br/>
                 <Input placeholder="Question" type = "select" onChange={(e) => setSecurityQuestion(e.target.value)} /><br/>
                 <label>Security answer:</label><br/>

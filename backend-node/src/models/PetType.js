@@ -13,4 +13,6 @@ const petTypeSchema = new Schema({
 
 const PetType = model('PetType', petTypeSchema)
 
+
+
 module.exports = PetType

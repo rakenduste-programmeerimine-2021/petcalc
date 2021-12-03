@@ -3,7 +3,7 @@ import { Input, Button } from 'antd';
 import './App.css';
 import Calculator from './Calculator';
 
-function Form () {
+function Manager () {
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
     const inputRef3 = useRef(null);
@@ -69,4 +69,4 @@ function Form () {
     );
 }
 
-export default Form;
+export default Manager;
