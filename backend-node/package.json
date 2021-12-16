@@ -5,12 +5,15 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon --inspect=0.0.0.0:9000 -L src/server.js"
+    "dev": "nodemon --inspect=0.0.0.0:9000 -L src/server.js",
+    "test": "jest --maxWorkers=1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cors": "^2.8.5",
+    "jest": "^27.4.3",
     "mongoose": "^6.0.6",
     "nodemon": "^2.0.12"
   },
@@ -19,6 +22,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.13.0",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "supertest": "^6.1.6"
   }
 }

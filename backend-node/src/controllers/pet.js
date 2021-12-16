@@ -21,17 +21,17 @@ exports.createPet = async (req, res) => {
   const createdPet = new Pet(newPet)
   const savedPet = await createdPet.save()
 
-  res.status(200).send(`Created pet ${savedPet._id}`)
+  res.status(200).send({message:`Created pet ${savedPet._id}`})
 }
 
 exports.updatePet = async (req, res) => {
 
   const { id } = req.params
-  const createdPet = await Pet.findById({ _id: id})
+  const createdPet = await Pet.findById(id)
   createdPet = req.body;
   const savedPet = await createdPet.save()
 
-  res.status(200).send(`Updated pet ${savedPet._id}`)
+  res.status(200).send(savedPet)
 }
 
 exports.deletePet = async (req, res) => {
@@ -40,5 +40,14 @@ exports.deletePet = async (req, res) => {
   const pet = await Pet.findOneAndDelete({ _id: id })
 
   if (!pet) res.status(404).send("No pet with that id found")
-  res.status(200).send(`Successfully deleted the following pet: \n ${pet}`)
+  res.status(200).send({message:`Successfully deleted the following pet: \n ${pet}`, deletedPetID:pet._id})
+}
+
+exports.getAllPetsForUser = async (req, res) => {
+
+  const { userid } = req.params
+  const pets = await Pet.find({ user: userid })
+
+  if (!pets) res.status(404).send(`No pets with that user found(${userid})`)
+  res.status(200).json({body:pets})
 }

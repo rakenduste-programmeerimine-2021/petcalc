@@ -1,16 +1,22 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3000
+var cors = require('cors')
 require("dotenv").config()
 
 const petRoutes = require('./routes/pet');
 const petTypeRoutes = require('./routes/petType');
+const userRoutes = require('./routes/user');
 
 const app = express()
-app.use(express.json());
 
+
+app.use(express.json());
+app.use(cors());
 app.use('/api/pet', petRoutes);
 app.use('/api/pettype', petTypeRoutes);
+app.use('/api/user', userRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -25,10 +31,9 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`))
-  })
-  .catch((err) => {
-    console.log(err)
-    process.exit(1)
-  })
+  
+  if (process.env.NODE_ENV !== 'test') {
+    const server = app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+  };
+  
+  module.exports=app

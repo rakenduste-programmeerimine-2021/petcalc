@@ -9,8 +9,8 @@ exports.getPetTypes = async (req, res) => {
 
 exports.getPetType = async (req, res) => {
 
-  const { id } = req.params
-  const petType = await PetType.findById(id)
+  const { species } = req.params
+  const petType = await PetType.findOne( {species:species} )
 
   res.status(200).send(petType)
 }
@@ -21,13 +21,13 @@ exports.createPetType = async (req, res) => {
   const createdPetType = new PetType(newPetType)
   const savedPetType = await createdPetType.save()
 
-  res.status(200).send(`Created petType ${savedPetType._id}`)
+  res.status(200).send({message:`Created petType ${savedPetType._id}`})
 }
 
 exports.updatePetType = async (req, res) => {
 
   const { id } = req.params
-  const createdPetType = await PetType.findById({ _id: id})
+  const createdPetType = await PetType.findById(id)
   createdPetType = req.body;
   const savedPetType = await createdPetType.save()
 
@@ -40,5 +40,5 @@ exports.deletePetType = async (req, res) => {
   const petType = await PetType.findOneAndDelete({ _id: id })
 
   if (!petType) res.status(404).send("No petType with that id found")
-  res.status(200).send(`Successfully deleted the following petType: \n ${petType}`)
+  res.status(200).send({message:`Successfully deleted the following petType: \n ${petType}`, deletedPetTypeID:petType._id})
 }
