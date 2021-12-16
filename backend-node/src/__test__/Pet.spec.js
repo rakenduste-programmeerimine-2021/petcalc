@@ -1,17 +1,48 @@
 const supertest = require('supertest');
-const Pets = require('../models/Pet.js');
 const app = require('../server');
+
+jest.useFakeTimers();
 
 describe("Loomade API testimine", () => {
 
 	it("uue lisamine", async () => {
+		
+		const response = await supertest(app).post('/api/user/signup').send({
+            _id: '823598239827491',
+            email: 'dflkef@edjie.com',
+            password: '2524rfecsysuUHFD-,.,',
+            againPassword: '2524rfecsysuUHFD-,.,',
+            securityQuestion: "What's your favourite brand of cereal?",
+            securityAnswer: 'Kelloggs',
+          });
+
+		expect(response.status).toBe(200);
+		expect(response.body).toHaveProperty('message');
+        
+
+	});
+
+	it("usisse logimine", async () => {
+
+		const response = await supertest(app).post('/api/user/login').send({
+            email: 'dflkef@edjie.com',
+            password: '2524rfecsysuUHFD-,.,',
+          });
+
+		expect(response.status).toBe(200);
+		expect(response.body).toHaveProperty('token');
+		expect(response.body).toHaveProperty('user');
+
+	});
+
+	it("uue lisamine", async () => {
 
 		const response = await supertest(app).post('/api/pet/create').send({
-            _id:' 34534534',
+            _id: '34534534',
 			name: 'X',
             dateOfBirth: 23534654262,
             type: 'Dog',
-            user: 'Spfincei', 
+            user: '823598239827491', 
 		});
 
 		expect(response.status).toBe(200);
@@ -48,7 +79,18 @@ describe("Loomade API testimine", () => {
 
 	});
 
-    it("kustutamine", async () => {
+    
+
+    it("kõigi kasutaja loomade vaatamine", async () => {
+
+		const response = await supertest(app).get('/api/pet/user/823598239827491');
+
+		expect(response.status).toBe(200);
+        expect(response.body[0]._id).toBe('34534534');
+
+	});
+	
+	it("kustutamine", async () => {
 
 		const response = await supertest(app).delete('/api/pet/delete/34534534');
 
@@ -58,19 +100,15 @@ describe("Loomade API testimine", () => {
 
 	});
 
-    it("kõigi kasutaja loomade vaatamine", async () => {
+	it("kustutamine", async () => {
 
-		const response = await supertest(app).delete('/api/pet/user/Spfincei');
+		const response = await supertest(app).delete('/api/user/delete/823598239827491');
 
 		expect(response.status).toBe(200);
-        expect(response.body[0]._id).toBe('34534534');
+        expect(response.body.deletedUserID).toBe('823598239827491');
+        expect(response.body).toHaveProperty('message');
 
 	});
 
-	afterEach(async () => {
-		await Pets.deleteOne({
-			name: 'X'
-		})
-	})
-
+	
 });

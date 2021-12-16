@@ -4,7 +4,8 @@ import './Navbar.css';
 import { Context } from "../store";
 
 function Navbar () {
-    const [state, dispatch] = useContext(Context);
+  const [state, dispatch] = useContext(Context);
+  
   return(
     <div class="navcontainer">
       <div class="navsubcont">
@@ -14,21 +15,19 @@ function Navbar () {
         {!state.auth.token && 
         (   
         <ul>
-            <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
-            <li><NavLink to="/form" activeClassName="active">Form</NavLink></li>        
+            <li><NavLink exact to="/" activeClassName="active">Form</NavLink></li>        
             <li><NavLink to="/register" activeClassName="active">Register</NavLink></li>        
             <li><NavLink to="/login" activeClassName="active">Login</NavLink></li>
         </ul>
         )
         }
         {state.auth.token && 
-        (   
-        <ul>
-            <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
-            <li><NavLink to="/form" activeClassName="active">Form</NavLink></li>        
-            <li><NavLink to="/manager" activeClassName="active">Pet Manager</NavLink></li>        
-            <li><NavLink to="/profile" activeClassName="active">Options</NavLink></li>
-        </ul>
+        ( 
+          <ul>
+              <li><NavLink exact to="/" activeClassName="active">Form</NavLink></li>       
+              <li><NavLink to="/manager" activeClassName="active">Pet Manager</NavLink></li>        
+              <li><NavLink to="/profile" activeClassName="active">Options</NavLink></li>
+          </ul>
         )
         }
       </div>

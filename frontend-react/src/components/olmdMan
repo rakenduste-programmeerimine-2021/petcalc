@@ -16,22 +16,20 @@ function Manager () {
     const inputRef2 = useRef(null);
     const inputRef3 = useRef(null);
     
-    useEffect(()=>{
+     useEffect(()=>{
         fetch('http://localhost:8081/api/pet/user/'+state.auth.user.id, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               'authorization': 'Bearer ' + state.auth.token,
             },
-        }).then(data => { 
-            return data.json();
-        }).then(async (data) => {
-            console.log(data.body);
-            await dispatch(updatePets(data.body));
-            console.log(state);
+        }).then(async (data) => { 
+            await data.json();
+            console.log(data);
+            await dispatch(updatePets(data));
+        
         }); 
     },[]); 
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -39,7 +37,7 @@ function Manager () {
             name,
             dateOfBirth: dob,
             type: species,
-            user: state.auth.user.id,
+            user: state.user.id,
         }
         fetch('http://localhost:8081/api/pet/create/', {
           method: 'POST',
@@ -49,22 +47,15 @@ function Manager () {
           },
           body: JSON.stringify(pet),
         })
-        .then(data => { 
-            return data.json();
-        }).then(async (data) => {
+        .then(async (data) => { 
+            await data.json();
             console.log(data);
             await dispatch(addPet(pet));
-        });         
+        })
+        
     }
 
-
-    const handleClick = () => {
-        if (showAdd) {
-            setShowAdd(false);
-        } else setShowAdd(true);
-    } 
       
- 
 
     return(
         <>
@@ -72,8 +63,8 @@ function Manager () {
             <div class = "main">
                 <h2>Halda looma</h2>
                 <Pets pets={state.pets.data} />
-                <Button onClick={handleClick} type="primary">Lisa loom</Button>
-                <form class="addForm" style={showAdd ? {display:'block' }:  {display:'none'}} onSubmit={handleSubmit}>    
+                <Button onClick={showAdd?setShowAdd(true):setShowAdd(false)} type="primary">Lisa loom</Button>
+                <form class="addForm" style={showAdd ? {display:'none'} : {display:'block' }} onSubmit={handleSubmit}>    
                     <label>Mis on looma nimi?</label><br/>
                     <Input placeholder="Nimi" ref={inputRef1} type="text" value={name} onChange={(e) => setName( e.target.value)} /><br/>
                     <label>Mis on looma sünnikuupäev?</label><br/>

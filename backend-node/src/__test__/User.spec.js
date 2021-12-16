@@ -1,7 +1,7 @@
 const supertest = require('supertest');
-const { login } = require('../controllers/user.js');
-const Users = require('../models/User.js');
 const app = require('../server');
+
+jest.useFakeTimers();
 
 describe("kasutaja API testimine", () => {
 
@@ -19,6 +19,19 @@ describe("kasutaja API testimine", () => {
 		expect(response.status).toBe(200);
 		expect(response.body).toHaveProperty('message');
         
+
+	});
+
+	it("usisse logimine", async () => {
+
+		const response = await supertest(app).post('/api/user/login').send({
+            email: 'dflkef@edjie.com',
+            password: '2524rfecsysuUHFD-,.,',
+          });
+
+		expect(response.status).toBe(200);
+		expect(response.body).toHaveProperty('token');
+		expect(response.body).toHaveProperty('user');
 
 	});
 
@@ -49,13 +62,5 @@ describe("kasutaja API testimine", () => {
         expect(response.body).toHaveProperty('message');
 
 	});
-
-    /* login */
-
-	afterEach(async () => {
-		await Users.deleteOne({
-			_id: '823598239827491'
-		})
-	})
 
 });

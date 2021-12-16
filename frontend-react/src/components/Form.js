@@ -39,7 +39,8 @@ function Form () {
 
     return(
         <div class = "main">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <h2>Lemmiklooma kalkulaator</h2>
+            <p>Lemmiklooma kalkulaator võimaldab sul sisestada andmeid enda kohta ja saada soovitusi, millist lemmiklooma sa saaksid endale võtta. Registreeri ning saad lisada mitu looma ja kõigi peale kokku arvutada.</p>
             <form onSubmit={handleSubmit}>    
                 <div class="container">
                     <div class="subcont">

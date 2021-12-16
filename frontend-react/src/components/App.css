@@ -37,7 +37,7 @@
     }
   }
   
-  form button {
+  button {
     margin:30px;
     padding: 5px 15px;
     background-color: rgb(81, 190, 154);
@@ -48,7 +48,7 @@
     font-size: 16px;
   }
   
-  form button:hover {
+  button:hover {
     background-color: rgb(27, 172, 160);
     border-style: solid;
     border-width: 1px;
@@ -61,7 +61,7 @@
   }
 
   .main {
-    margin: 30px 140px;
+    margin: 20px 100px;
   }
 
   .container {
@@ -91,6 +91,25 @@
   }
 
   .login-wrapper label, input, button {
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .containe {
+    display: flex;
+    padding: 10px;
+    
+  }
+
+  .subcon {
+    flex: 1;
+  }
+
+  .subcon:first-child {
+    margin-right: 10px;
+  }
+
+  .subcon label, input, button {
     margin: 5px;
     padding: 5px;
   }

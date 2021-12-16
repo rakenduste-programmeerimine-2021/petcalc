@@ -1,9 +1,41 @@
 const supertest = require('supertest');
-const PetTypes = require('../models/PetType.js');
 const app = require('../server');
+
+jest.useFakeTimers();
 
 describe("Loomatüüpidede API testimine", () => {
 
+
+    it("uue lisamine", async () => {
+
+		const response = await supertest(app).post('/api/user/signup').send({
+            _id: '823598239827491',
+            email: 'dflkef@edjie.com',
+            password: '2524rfecsysuUHFD-,.,',
+            againPassword: '2524rfecsysuUHFD-,.,',
+            securityQuestion: "What's your favourite brand of cereal?",
+            securityAnswer: 'Kelloggs',
+          });
+
+		expect(response.status).toBe(200);
+		expect(response.body).toHaveProperty('message');
+        
+
+	});
+
+	it("usisse logimine", async () => {
+
+		const response = await supertest(app).post('/api/user/login').send({
+            email: 'dflkef@edjie.com',
+            password: '2524rfecsysuUHFD-,.,',
+          });
+
+		expect(response.status).toBe(200);
+		expect(response.body).toHaveProperty('token');
+		expect(response.body).toHaveProperty('user');
+
+	});
+    
 	it("uue lisamine", async () => {
 
 		const response = await supertest(app).post('/api/pettype/create').send({
@@ -62,11 +94,14 @@ describe("Loomatüüpidede API testimine", () => {
 
 	});
 
+    it("kustutamine", async () => {
 
-	afterEach(async () => {
-		await PetTypes.deleteOne({
-			species: 'Turtle or Tortoise'
-		})
-	})
+		const response = await supertest(app).delete('/api/pet/delete/823598239827491');
+
+		expect(response.status).toBe(200);
+        expect(response.body.deletedUserID).toBe('823598239827491');
+        expect(response.body).toHaveProperty('message');
+
+	});
 
 });

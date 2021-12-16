@@ -26,13 +26,13 @@ export default function Login (){
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const token = await loginf({
+        const loggedIn = await loginf({
             email,
             password
         });   
 
-        await dispatch(loginUser(token));
-        console.log(state);
+        await dispatch(loginUser(loggedIn));
+        console.log(loggedIn);
         history.push('/form');
     }
 

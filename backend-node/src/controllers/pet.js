@@ -49,5 +49,5 @@ exports.getAllPetsForUser = async (req, res) => {
   const pets = await Pet.find({ user: userid })
 
   if (!pets) res.status(404).send(`No pets with that user found(${userid})`)
-  res.status(200).send(pets)
+  res.status(200).json({body:pets})
 }

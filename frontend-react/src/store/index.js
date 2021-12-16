@@ -1,6 +1,10 @@
 import { createContext, useReducer } from "react";
-import { authReducer } from "./reducer";
+import { petReducer, authReducer } from "./reducer";
 import combineReducers from "react-combine-reducers"
+
+const initialPets = {
+  data: []
+}
 
 const initialAuth = {
   token: null,
@@ -8,6 +12,7 @@ const initialAuth = {
 }
 
 const [combinedReducer, initialState] = combineReducers({
+  pets: [petReducer, initialPets],
   auth: [authReducer, initialAuth]
 })
 

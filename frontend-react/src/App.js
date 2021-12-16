@@ -25,7 +25,7 @@ function App() {
         {state.auth.token &&
           (<Switch>
             <Route exact path='/profile' component={Profile} />
-            <Route exact path='/manage' component={Manager} />
+            <Route exact path='/manager' component={Manager} />
             <Route exact path='/form' component={UserForm} />
           </Switch>)
         }

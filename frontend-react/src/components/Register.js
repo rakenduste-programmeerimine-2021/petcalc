@@ -20,8 +20,12 @@ const Register = () => {
           },
           body: JSON.stringify(credentials)
         })
-          .then(data => data.json())
-    }
+        .then(data => { 
+            return data.json();
+        }).then(async (data) => {
+            console.log(data);
+        }); 
+    } 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,7 +44,7 @@ const Register = () => {
                 <Input placeholder="Email" type = "text" onChange={(e) => setEmail(e.target.value)} /><br/>
                 <label>Password:</label><br/>
                 <Input.Password onChange={(e) => setPassword(e.target.value)} /><br/>
-                <label>Confirm password</label><br/>
+                <label>Confirm password:</label><br/>
                 <Input.Password onChange={(e) => setAgainPassword(e.target.value)} /><br/>
                 <label>Security question:</label><br/>
                 <Input placeholder="Question" type = "select" onChange={(e) => setSecurityQuestion(e.target.value)} /><br/>
