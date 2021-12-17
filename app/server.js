@@ -8,7 +8,7 @@ const petTypeRoutes = require('./routes/petType');
 const userRoutes = require('./routes/user');
 
 const app = express()
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 
 app.use(express.json());
