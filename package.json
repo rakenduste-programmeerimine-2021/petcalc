@@ -1,11 +1,11 @@
 {
-  "name": "backend-node",
+  "name": "petcalc",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
-  "script": {
-    "start": "node src/server.js",
-    "dev": "nodemon --inspect=0.0.0.0:9000 -L src/server.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --inspect=0.0.0.0:9000 -L server.js",
     "test": "jest --maxWorkers=1",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cors": "^2.8.5",
     "jest": "^27.4.3",
     "mongoose": "^6.0.6",
     "nodemon": "^2.0.12"
