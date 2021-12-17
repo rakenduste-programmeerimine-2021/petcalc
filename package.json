@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
-  "scripts": {
+  "script": {
     "start": "node src/server.js",
     "dev": "nodemon --inspect=0.0.0.0:9000 -L src/server.js",
-    "test": "jest --maxWorkers=1"
+    "test": "jest --maxWorkers=1",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
