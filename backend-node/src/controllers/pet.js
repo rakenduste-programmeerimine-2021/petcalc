@@ -27,11 +27,27 @@ exports.createPet = async (req, res) => {
 exports.updatePet = async (req, res) => {
 
   const { id } = req.params
-  const createdPet = await Pet.findById(id)
-  createdPet = req.body;
-  const savedPet = await createdPet.save()
-
-  res.status(200).send(savedPet)
+  const { name, dateOfBirth, type, user } = req.body
+  try {
+    const pet = await Pet.findByIdAndDelete(id)
+      if (!pet) throw Error("Pet with that id doesnt exist")
+  
+      const newPet = new Pet({
+        _id:id,
+        name,
+        dateOfBirth,
+        type,
+        user
+      })
+  
+      const savedPet = await newPet.save()
+      if (!savedPet) throw Error("Error saving pet")
+  
+      res.status(200).json({ message: "Pet updated successfully" })
+  } catch (e) {
+    res.status(400).json({ error: e.message })
+  }
+  
 }
 
 exports.deletePet = async (req, res) => {

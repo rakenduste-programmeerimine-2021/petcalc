@@ -1,4 +1,4 @@
-ul {
+  .navlist {
     list-style-type: none;
     float:right;
     margin: 0;
@@ -7,11 +7,11 @@ ul {
     background-color: rgb(108, 250, 203);
   }
   
-  li {
+  .navitem {
     float: right;
   }
   
-  li a {
+  .navitem a {
     display: block;
     color: rgb(0, 0, 0);;
     text-align: center;
@@ -21,11 +21,11 @@ ul {
   }
   
   /* Change the link color to #111 (black) on hover */
-  li a:hover {
+  .navitem a:hover {
     background-color: rgb(27, 172, 160);
   }
 
-  li a.active {
+  .navitem a.active {
     background-color: rgb(85, 218, 173);
   }
 
@@ -39,14 +39,14 @@ ul {
 
   h1 {
     color: #59C183;
-    margin: 50px 100px;
+    margin: 50px 0px 25px 100px;
     text-decoration: none;
     font-size:64px;
     font-weight:normal;
     font-family: 'Roboto','Helvetica Neue', sans-serif;
   }
 
-  p {
+  .navitem p {
     float:right;
     margin: 50px;
   }

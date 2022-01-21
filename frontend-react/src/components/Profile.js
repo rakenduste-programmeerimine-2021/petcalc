@@ -4,6 +4,7 @@ import './App.css';
 import { Context } from "../store";
 import Logout from "./Logout";
 import Popup from "reactjs-popup";
+import { CloseCircleOutlined } from '@ant-design/icons';
 import { logoutUser } from "../store/actions";
 import { useHistory } from "react-router-dom";
 
@@ -15,38 +16,47 @@ function Profile () {
     const [securityQuestion, setSecurityQuestion] = useState();
     const [securityAnswer, setSecurityAnswer] = useState();
     const [deletionConfirm, setDelete] = useState(false);
-    const [error, setError] = useState("");
+    const [succ, setSucc] = useState(false);
+    const [err, setErr] = useState(false);
+    const [error, setError] = useState([]);
     const [state, dispatch] = useContext(Context);
     const history = useHistory();
 
     useEffect(()=>{setEmail(state.auth.user.email);console.log(state);},[]);
 
     async function updatef(credentials) {
-        return fetch('http://localhost:8081/api/user/update', {
-            method: 'DELETE',
+        return fetch('http://localhost:8081/api/user/update/'+state.auth.user.id, {
+            method: 'PUT',
             headers: {
             'Content-Type': 'application/json',
-            'Authentication': state.auth.token,
+            'authorization': 'Bearer ' + state.auth.token,
             },
             body: JSON.stringify(credentials),
         })
-          .then(data => data.json())
-          
+            .then(data => data.json())
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setErr(false);
+        setError([]);
         const result = await updatef({
             email, password, againPassword, securityQuestion, securityAnswer
         });   
         
         console.log(result);
+        if(typeof result.message === 'undefined'){
+            setError(result.msg?result.msg[0].param +" "+ result.msg[0].msg:result.error)
+            setErr(true);
+        } else {
+            setSucc(true);
+            setErr(false);
+            setError(result.message);
+        }
         
-        history.push('/profile');
     }
 
-    const handleDelete = async (e) => {
+    const handleDelete = (e) => {
         e.preventDefault();
         fetch('http://localhost:8081/api/user/delete/'+state.auth.user.id, {
             method: 'DELETE',
@@ -68,7 +78,22 @@ function Profile () {
 
     return(
         <>
-            <Logout/>
+            <Logout/><br/>
+            {succ && 
+            (
+                <>
+                    <h4>{error}     <span onClick={()=>{setSucc(false)}}><CloseCircleOutlined /></span></h4>
+                </>
+            )
+            }
+            {err && 
+            (
+                <>
+                    <h3>{error}     <span onClick={()=>{setErr(false)}}><CloseCircleOutlined /></span></h3>
+                </>
+            )
+            }
+            
             <div class = "main">
                 <h2>Kasutaja seaded</h2>
                 <form onSubmit={handleSubmit}>    
@@ -80,18 +105,18 @@ function Profile () {
                             <Input.Password onChange={(e) => setPassword(e.target.value)} /><br/>
                             <label>Salasõna kordus</label><br/>
                             <Input.Password onChange={(e) => setAgainPassword(e.target.value)} /><br/>
-                            <label>Taastamisküsuimus</label><br/>
+                            <label>Taastamisküsimus</label><br/>
                             <Input placeholder="Küsimus?" type="text" onChange={(e) => setSecurityQuestion(e.target.value)} /><br/>
                         </div>
                         <div class="subcont"> 
-                            <label>Taastamisküsuimuse vastus</label><br/>
+                            <label>Taastamisküsimuse vastus</label><br/>
                             <Input placeholder="Vastus!" type="text" onChange={(e) => setSecurityAnswer(e.target.value)} /><br/>
                             <label>Kasutaja kustutamine</label>
                             <Popup trigger={<Button type="primary">Kustuta kasutaja jäädavalt!</Button>}>
                                 <form onSubmit={handleDelete}>    
                                     <label>Kas oled kindel, et soovid kasutaja kustutada?</label><br/>
                                     <label>Sisesta '{state.auth.user.email}'</label><br/>
-                                    <Input placeholder="Kustuta kasutaja" onChange={(e) => setDelete(e.target.value)} type="text" /><br/>
+                                    <Input placeholder="Kustuta kasutaja" onChange={(e) => e.target.value===state.auth.user.email?setDelete(true):setDelete(false)} type="text" /><br/>
                                     {deletionConfirm && (<Button htmlType="submit" type="primary" >Kustuta kasutaja</Button>)}
                                     {!deletionConfirm && (<Button htmlType="submit" type="primary" disabled>Kustuta kasutaja</Button>)}
                                 </form>

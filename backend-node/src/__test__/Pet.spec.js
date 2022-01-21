@@ -14,7 +14,7 @@ describe("Loomade API testimine", () => {
             againPassword: '2524rfecsysuUHFD-,.,',
             securityQuestion: "What's your favourite brand of cereal?",
             securityAnswer: 'Kelloggs',
-          });
+        });
 
 		expect(response.status).toBe(200);
 		expect(response.body).toHaveProperty('message');
@@ -27,7 +27,7 @@ describe("Loomade API testimine", () => {
 		const response = await supertest(app).post('/api/user/login').send({
             email: 'dflkef@edjie.com',
             password: '2524rfecsysuUHFD-,.,',
-          });
+        });
 
 		expect(response.status).toBe(200);
 		expect(response.body).toHaveProperty('token');

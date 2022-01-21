@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const userController = require("../controllers/user")
-const validationMiddleware = require("../middleware/validationMiddleware");
-const { check } = require("express-validator");
+const validationMiddleware = require("../middleware/validationMiddleware")
+const { check } = require("express-validator")
 const jwtAuth = require("../middleware/jwtAuth")
 
 router.get("/:id", jwtAuth, userController.getUserInfo);
@@ -26,16 +26,16 @@ router.post("/signup",
     .isEmail()
     .normalizeEmail()
     .withMessage("Must be correctly formatted e-mail"),
-  check("password")/* 
+  check("password")
     .isLength({ min: 6 })
-    .contains("password", {ignoreCase: true }) */
+    .withMessage("Must be at least 6 characters long")
     .isStrongPassword()
-    .withMessage("Must be at least 6 characters long"),
-  check("againPassword")/* 
+    .withMessage("Weak password"),
+  check("againPassword")
     .isLength({ min: 6 })
-    .contains("password", {ignoreCase: true }) */
+    .withMessage("Must be at least 6 characters long")
     .isStrongPassword()
-    .withMessage("Must be at least 6 characters long"),
+    .withMessage("Weak password")
 ],
 validationMiddleware, userController.signup);
 
@@ -71,18 +71,16 @@ router.put("/update/:id",
     .isEmail()
     .normalizeEmail()
     .withMessage("Must be correctly formatted e-mail"),
-  check("password")
+    check("password")
     .isLength({ min: 6 })
-    .contains('password', {ignoreCase: true })
-    .withMessage("Must not contain 'password'")
+    .withMessage("Must be at least 6 characters long")
     .isStrongPassword()
-    .withMessage("Must be at least 6 characters long"),
+    .withMessage("Weak password"),
   check("againPassword")
     .isLength({ min: 6 })
-    .contains('password', {ignoreCase: true })
-    .withMessage("Must not contain 'password'")
+    .withMessage("Must be at least 6 characters long")
     .isStrongPassword()
-    .withMessage("Must be at least 6 characters long"),
+    .withMessage("Weak password")
 ],
 validationMiddleware, jwtAuth, userController.updateUser);
 

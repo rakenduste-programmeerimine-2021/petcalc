@@ -10,7 +10,7 @@ const petReducer = (state, action) => {
     case PET_REMOVE:
       return {
         ...state,
-        data: state.data.filter(pet => pet.id !== action.payload)
+        data: state.data.filter(pet => pet._id !== action.payload)
       }
     case PETS_UPDATE: 
         return {

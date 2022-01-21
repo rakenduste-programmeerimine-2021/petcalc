@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Input, Button } from 'antd';
 import './App.css';
 import Calculator from './Calculator';
+import Select from 'react-select';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Form () {
-    const inputRef1 = useRef(null);
-    const inputRef2 = useRef(null);
     const inputRef3 = useRef(null);
     const inputRef4 = useRef(null);
     const inputRef5 = useRef(null);
@@ -14,13 +15,23 @@ function Form () {
     const inputRef8 = useRef(null);
     const [isAnswered, setIsAnswered] = useState(false);
     const [species, setSpecies] = useState("");
-    const [age, setAge] = useState("");
+    const [dob, setDob] = useState(new Date());
     const [morning, setMorning] = useState("");
     const [evening, setEvening] = useState("");
     const [day, setDay] = useState("");
     const [week, setWeek] = useState("");
     const [month, setMonth] = useState("");
     const [money, setMoney] = useState("");
+    const [petType, setPetType] = useState([]);
+
+    useEffect(()=>{
+        fetch('http://localhost:8081/api/pettype/').then
+                (data => data.json()
+                ).then(data => {
+                console.log(data);
+                setPetType(data);
+        });
+    },[]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,9 +41,12 @@ function Form () {
 
     }
 
+    const renderList = () => {
+        return (petType.map(data =>({label:data.species,value:data._id})));
+    }
 
     if(isAnswered){
-        const result = Calculator(species, age, morning, evening, day, week, month, money)
+        const result = Calculator(species, dob, morning, evening, day, week, month, money)
         if (result == true) {return(<p>Te saate {species} võtta</p>)}
         else if (result == false){return(<p>Te ei saa {species} võtta</p>)}
     }
@@ -45,9 +59,9 @@ function Form () {
                 <div class="container">
                     <div class="subcont">
                         <label>Mis on looma liik?</label><br/>
-                        <Input placeholder="Liik" ref={inputRef1} type="text" value={species} onChange={(e) => setSpecies( e.target.value)} autoFocus /><br/>
-                        <label>Mis on looma vanus?</label><br/>
-                        <Input placeholder="Vanus" ref={inputRef2} type="text" value={age} onChange={(e) => setAge(e.target.value)} /><br/>
+                        <Select class="addForm" defaultValue={species} onChange={(sel)=>setSpecies({sel})} options={renderList()}   />
+                        <label>Mis on looma sünnikuupäev?</label><br/>
+                        <DatePicker locale="et" dateFormat="yyyy-MM-dd" selected={dob} onChange={(date) => setDob(date)} />
                         <label>Mitu min on sul kindlasti iga päeva hommikul vaba aega tegeleda loomaga?</label><br/>
                         <Input placeholder="Hommik" ref={inputRef3} type="text" value={morning} onChange={(e) => setMorning(e.target.value)} /><br/>
                         <label>Mitu min on sul kindlasti iga päeva õhtul vaba aega tegeleda loomaga?</label><br/>

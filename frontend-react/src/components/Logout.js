@@ -16,7 +16,7 @@ function Logout() {
       
     }
 
-return(<Link style={{float:"right"}} onClick={handleLogout}>Log out</Link>);
+return(<button style={{float:"right"}} onClick={handleLogout}>Log out</button>);
 
 }
 

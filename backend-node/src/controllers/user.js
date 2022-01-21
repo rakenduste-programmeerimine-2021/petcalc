@@ -50,7 +50,7 @@ exports.signup = async (req, res) => {
       if (!user) throw Error("User with this e-mail does not exist")
   
       const isMatch = await bcrypt.compare(password, user.password)
-      if (!isMatch) throw Error("Error")
+      if (!isMatch) throw Error("Wrong user or password")
   
       const userTemplate = {
         id: user._id,
@@ -76,27 +76,27 @@ exports.signup = async (req, res) => {
     const { id } = req.params
   
     try {
-      const user = await User.findById(id)
-  
-      if (!user) throw Error("User with that id doesnt exist")
-  
-      if (againPassword!=password) throw Error("Something critical happened 172387123")
+      if (againPassword!=password) throw Error("Passwords don't match")
 
       const salt = await bcrypt.genSalt(10)
-      if (!salt) throw Error("Something critical happened 483543875")
+      if (!salt) throw Error("Something critical happened 48354")
   
       const hash = await bcrypt.hash(password, salt)
-      if (!hash) throw Error("Something critical happened 123172387")
+      if (!hash) throw Error("Something critical happened 12317")
   
       
       const newUser = new User({
+        _id:id,
         email,
         password: hash,
         securityQuestion,
         securityAnswer,
         options,
       })
-  
+
+      const user = await User.findByIdAndDelete(id)
+      if (!user) throw Error("User with that id doesnt exist")
+      
       const savedUser = await newUser.save()
       if (!savedUser) throw Error("Error saving user")
   

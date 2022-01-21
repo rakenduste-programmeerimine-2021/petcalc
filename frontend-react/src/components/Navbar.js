@@ -14,19 +14,19 @@ function Navbar () {
       <div class="navsubcont">
         {!state.auth.token && 
         (   
-        <ul>
-            <li><NavLink exact to="/" activeClassName="active">Form</NavLink></li>        
-            <li><NavLink to="/register" activeClassName="active">Register</NavLink></li>        
-            <li><NavLink to="/login" activeClassName="active">Login</NavLink></li>
+        <ul className="navlist">
+            <li className="navitem"><NavLink to="/form" activeClassName="active">Form</NavLink></li>        
+            <li className="navitem"><NavLink to="/register" activeClassName="active">Register</NavLink></li>        
+            <li className="navitem"><NavLink to="/login" activeClassName="active">Login</NavLink></li>
         </ul>
         )
         }
         {state.auth.token && 
         ( 
-          <ul>
-              <li><NavLink exact to="/" activeClassName="active">Form</NavLink></li>       
-              <li><NavLink to="/manager" activeClassName="active">Pet Manager</NavLink></li>        
-              <li><NavLink to="/profile" activeClassName="active">Options</NavLink></li>
+          <ul className="navlist">
+              <li className="navitem"><NavLink to="/form" activeClassName="active">Form</NavLink></li>       
+              <li className="navitem"><NavLink to="/manager" activeClassName="active">Pet Manager</NavLink></li>        
+              <li className="navitem"><NavLink to="/profile" activeClassName="active">Options</NavLink></li>
           </ul>
         )
         }
