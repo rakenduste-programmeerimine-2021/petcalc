@@ -1,0 +1,52 @@
+  .navlist {
+    list-style-type: none;
+    float:right;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(108, 250, 203);
+  }
+  
+  .navitem {
+    float: right;
+  }
+  
+  .navitem a {
+    display: block;
+    color: rgb(0, 0, 0);;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size:16px;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  .navitem a:hover {
+    background-color: rgb(27, 172, 160);
+  }
+
+  .navitem a.active {
+    background-color: rgb(85, 218, 173);
+  }
+
+  .navcontainer {
+      display: flex;
+  }
+
+  .navsubcont {
+      flex: 1;
+  }
+
+  h1 {
+    color: #59C183;
+    margin: 50px 0px 25px 100px;
+    text-decoration: none;
+    font-size:64px;
+    font-weight:normal;
+    font-family: 'Roboto','Helvetica Neue', sans-serif;
+  }
+
+  .navitem p {
+    float:right;
+    margin: 50px;
+  }
